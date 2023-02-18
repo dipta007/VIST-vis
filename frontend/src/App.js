@@ -40,7 +40,9 @@ function Album() {
     if (id === -1) {
       id = ids[Math.floor(Math.random() * ids.length)]
     }
+    console.log(id, album_id)
     const rdata = data[id]
+    console.log(rdata)
     if (rdata) {
       setRandom_data(rdata)
       window.history.replaceState(null, rdata.album_id, `/${rdata.album_id}`)

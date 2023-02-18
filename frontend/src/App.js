@@ -1,9 +1,8 @@
 import './App.css';
-import axios from 'axios';
 import { useState, useEffect } from 'react'
+import json from './data/vist.js'
 import {
-  BrowserRouter as Router,
-  HashRouter,
+  BrowserRouter,
   Routes,
   Route,
   useParams,
@@ -11,29 +10,32 @@ import {
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/:album_id" element={<Album/>} />
         <Route path="/" element={<Album/>} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
 export default App;
 
 function Album() {
+  const [data, _] = useState(json)
   const [random_data, setRandom_data] = useState(null)
   const { album_id } = useParams()
 
   const get_random_data = async () => {
-    const id = album_id ? album_id : -1
-    
-    const data = await axios.get(`https://vist.herokuapp.com/api/vist/${id}`)
-    if (data) {
-      setRandom_data(data.data)
-      console.log("Sds", data.data.album_id, id)
-      window.history.replaceState(null, data.data.album_id, `#/${data.data.album_id}`)
+    let id = album_id ? album_id : -1
+    const ids = Object.keys(data)
+    if (id === -1) {
+      id = ids[Math.floor(Math.random() * ids.length)]
+    }
+    const rdata = data[id]
+    if (rdata) {
+      setRandom_data(rdata)
+      window.history.replaceState(null, rdata.album_id, `/${rdata.album_id}`)
     }
   }
 

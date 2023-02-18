@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react'
 import json from './data/vist.jsonl'
 import {
-  BrowserRouter,
+  HashRouter,
   Routes,
   Route,
   useParams,
@@ -11,12 +11,12 @@ import {
 
 function App() {
   return (
-    <BrowserRouter basename='/VIST-vis'>
+    <HashRouter>
       <Routes>
         <Route path="/:album_id" element={<Album/>} />
         <Route path="/" element={<Album/>} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
@@ -29,10 +29,8 @@ function Album() {
   const navigate = useNavigate()
 
   async function get_data() {
-    console.log("data")
     const response = await fetch(json)
     const data = await response.json()
-    console.log(data)
     setData(data)
   }
 

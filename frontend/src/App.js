@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react'
-import json from './data/vist.js'
+import json from './data/vist.json'
 import {
   BrowserRouter,
   Routes,

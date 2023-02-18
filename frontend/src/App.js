@@ -46,7 +46,7 @@ function Album() {
     console.log(rdata)
     if (rdata) {
       setRandom_data(rdata)
-      window.history.replaceState(null, rdata.album_id, `/VIST-vis/${rdata.album_id}`)
+      window.history.replaceState(null, '', `/VIST-vis/${rdata.album_id}`)
     }
   }
 

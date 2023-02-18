@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react'
-import json from './data/vist.json'
+import json from './data/vist.jsonl'
 import {
   BrowserRouter,
   Routes,
@@ -22,9 +22,17 @@ function App() {
 export default App;
 
 function Album() {
-  const [data, _] = useState(json)
+  const [data, setData] = useState([])
   const [random_data, setRandom_data] = useState(null)
   const { album_id } = useParams()
+
+  async function get_data() {
+    console.log("data")
+    const response = await fetch(json)
+    const data = await response.json()
+    console.log(data)
+    setData(data)
+  }
 
   const get_random_data = async () => {
     let id = album_id ? album_id : -1
@@ -39,9 +47,13 @@ function Album() {
     }
   }
 
+  useEffect(() => {
+    get_data()
+  }, [])
+
   useEffect(()=>{
     get_random_data()
-  },[])
+  },[data])
 
   const get_table = (type) => (
     <><h2>{type}</h2><table>

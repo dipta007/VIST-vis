@@ -10,7 +10,7 @@ import {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/VIST-vis'>
       <Routes>
         <Route path="/:album_id" element={<Album/>} />
         <Route path="/" element={<Album/>} />

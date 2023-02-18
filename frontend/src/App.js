@@ -37,6 +37,7 @@ function Album() {
   const get_random_data = async () => {
     let id = album_id ? album_id : -1
     const ids = Object.keys(data)
+    console.log(id, ids)
     if (id === -1) {
       id = ids[Math.floor(Math.random() * ids.length)]
     }

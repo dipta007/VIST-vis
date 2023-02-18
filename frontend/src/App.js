@@ -6,6 +6,7 @@ import {
   Routes,
   Route,
   useParams,
+  useNavigate,
 } from "react-router-dom";
 
 function App() {
@@ -25,6 +26,7 @@ function Album() {
   const [data, setData] = useState([])
   const [random_data, setRandom_data] = useState(null)
   const { album_id } = useParams()
+  const navigate = useNavigate()
 
   async function get_data() {
     console.log("data")
@@ -34,8 +36,11 @@ function Album() {
     setData(data)
   }
 
-  const get_random_data = async () => {
+  const get_random_data = async (random=false) => {
     let id = album_id ? album_id : -1
+    if (random) {
+      id = -1
+    }
     const ids = Object.keys(data)
     console.log(id, ids)
     if (id === -1) {
@@ -46,7 +51,8 @@ function Album() {
     console.log(rdata)
     if (rdata) {
       setRandom_data(rdata)
-      window.history.replaceState(null, '', `/VIST-vis/${rdata.album_id}`)
+      navigate(`/${rdata.album_id}`)
+      // window.history.replaceState(null, '', `/VIST-vis/${rdata.album_id}`)
     }
   }
 
@@ -84,7 +90,7 @@ function Album() {
           {get_table('dii')}
           {get_table('sis')}
           <div style={{ margin: '40px' }}></div>
-          <button onClick={get_random_data}>Next</button>
+          <button onClick={() => get_random_data(true)}>Next</button>
         </>
         : null
       }

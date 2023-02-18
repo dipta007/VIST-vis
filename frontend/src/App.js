@@ -29,7 +29,7 @@ function Album() {
   const get_random_data = async () => {
     const id = album_id ? album_id : -1
     
-    const data = await axios.get(`http://127.0.0.1:5000/api/vist/${id}`)
+    const data = await axios.get(`https://vist.herokuapp.com/api/vist/${id}`)
     if (data) {
       setRandom_data(data.data)
       console.log("Sds", data.data.album_id, id)

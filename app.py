@@ -9,5 +9,6 @@ api = Api(app)
 api.add_resource(CorpusApiHandler, '/api/vist/<album_id>')
 
 @app.route("/", defaults={'path':''})
+@app.route("/<path:path>")
 def serve(path):
     return send_from_directory(app.static_folder,'index.html')

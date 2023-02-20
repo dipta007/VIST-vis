@@ -2,7 +2,6 @@ import './App.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react'
 import {
-  BrowserRouter as Router,
   HashRouter,
   Routes,
   Route,
@@ -29,10 +28,9 @@ function Album() {
   const get_random_data = async () => {
     const id = album_id ? album_id : -1
     
-    const data = await axios.get(`https://vist.herokuapp.com/api/vist/${id}`)
+    const data = await axios.get(`https://vist-vis.vercel.app/api/vist/${id}`)
     if (data) {
       setRandom_data(data.data)
-      console.log("Sds", data.data.album_id, id)
       window.history.replaceState(null, data.data.album_id, `#/${data.data.album_id}`)
     }
   }

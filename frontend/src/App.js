@@ -44,9 +44,21 @@ function Album() {
     if (id === -1) {
       id = ids[Math.floor(Math.random() * ids.length)]
     }
-    console.log(id, album_id)
+    // console.log(id, album_id)
     const rdata = data[id]
-    console.log(rdata)
+    // console.log(rdata)
+    for (let i=0; i < rdata['sis'].length; i += 1) {
+      const img_url = rdata['sis'][i]['img_url']
+      let dii = ''
+      for (let j=0; j < rdata['dii'].length; j += 1) {
+        if (rdata['dii'][j]['img_url'] == img_url) {
+          dii = rdata['dii'][j]['text']
+          break
+        }
+      }
+      rdata['sis'][i]['dii'] = dii
+    }
+    // console.log("dd", rdata)
     if (rdata) {
       setRandom_data(rdata)
       navigate(`/${rdata.album_id}`)
@@ -66,13 +78,19 @@ function Album() {
     <><h2>{type}</h2><table>
       {/* Image */}
       <tr>
-        {random_data[type].map((item) => (
+        {random_data['sis'].map((item) => (
           <td><img id="context_img" src={item.img_url} width="200" alt={item.text} /></td>
         ))}
       </tr>
-      {/* Text */}
+      {/* DII Text */}
       <tr>
-        {random_data[type].map((item) => (
+        {random_data['sis'].map((item) => (
+          <td>{item.dii}</td>
+        ))}
+      </tr>
+      {/* SIS Text */}
+      <tr>
+        {random_data['sis'].map((item) => (
           <td>{item.text}</td>
         ))}
       </tr>
@@ -85,8 +103,8 @@ function Album() {
       {random_data?.album_id ?
         <>
           {/* <h1><a href={`https://${random_data[0].url}`} target="_blank">URL</a>: {random_data[0].url.split('/')[1]}</h1> */}
-          {get_table('dii')}
-          {get_table('sis')}
+          {/* {get_table('dii')} */}
+          {get_table('VIST-Visualizer')}
           <div style={{ margin: '40px' }}></div>
           <button onClick={() => get_random_data(true)}>Next</button>
         </>
